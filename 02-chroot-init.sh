@@ -1,8 +1,9 @@
+#arch-chroot /mnt
+
 pcname=Thanatos
 localtimezone=Europe/Belgrade
 swapsize=8g
 
-arch-chroot /mnt
 # add btrfs to modules: MODULES=(btrfs)
 sed -i "s/MODULES=()/MODULES=(btrfs)/g" /etc/mkinitcpio.conf
 mkinitcpio -p linux
@@ -19,8 +20,8 @@ systemctl enable firewalld
 systemctl enable reflector.timer
 
 # timezone setup
-timedatectl set-timezone $localtimezone
-systemctl enable systemd-timesyncd
+#timedatectl set-timezone $localtimezone
+#systemctl enable systemd-timesyncd
 
 # host setup
 hostnamectlctl set-hostname $pcname
@@ -34,4 +35,4 @@ swapon /swap/swapfile
 echo "/swap/swapfile none swap defaults 0 0" >> /etc/fstab
 
 # yay install
-git clone https://aur.archlinux.org/yay-bin.git && cd yay-bin && makepkg -si && cd .. && rm -rf yay-bin
+#git clone https://aur.archlinux.org/yay-bin.git && cd yay-bin && makepkg -si && cd .. && rm -rf yay-bin
