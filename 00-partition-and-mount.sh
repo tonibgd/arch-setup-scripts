@@ -1,15 +1,18 @@
 lsblk
 
-drive=/dev/sda
+# nvme0n1
+# nvme0n1p1
+# nvme0n1p2
+drive=/dev/vda
 part1=$drive"1"
-part1=$drive"2"
+part2=$drive"2"
 
 sgdisk --zap-all $drive
 sgdisk -n 0:0:+512MiB -t 0:ef00 -c 0:efi $drive
 sgdisk -n 0:0:0 -t 0:8300 -c 0:root $drive
 
 mkfs.fat -F32 $part1
-mkfs.brtfs $part2
+mkfs.btrfs $part2
 
 mount $part2 /mnt
 cd /mnt
